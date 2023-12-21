@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Form</title>
-
-  <script src="https://4825-102-91-71-22.ngrok-free.app/payment-widget.js"></script>
+  <script src="payment-widget.js"></script>
 
 </head>
+
 <body>
 
   <div class="payment-form" id="paymentForm">
     <div class="payment-form-content">
       <h2>Payment Form</h2>
-      <form  id="paymentForm">
+      <form id="paymentForm">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
@@ -28,28 +29,29 @@
 
   <script>
     const paymentForm = document.getElementById('paymentForm');
-paymentForm.addEventListener("submit", payWithPayya, false);
+    paymentForm.addEventListener("submit", payWithPayya, false);
 
-   function payWithPayya(e) {
+    function payWithPayya(e) {
       e.preventDefault();
 
-  var handler = PaystackPop.setup({
-    key: 'YOUR_PUBLIC_KEY',
-    email: document.getElementById('email').value,
-    amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
-    currency: 'NGN', 
-    ref: 'YOUR_REFERENCE', 
-    callback: function(response) {
-      var reference = response.reference;
-      alert('Payment complete! Reference: ' + reference);
-      // Make an AJAX call to your server with the reference to verify the transaction
-    },
-    onClose: function() {
-      alert('Transaction was not completed, window closed.');
-    },
-  });
-  handler.openIframe();
-}
+      var handler = PaySwift.setup({
+        key: 'YOUR_PUBLIC_KEY',
+        email: document.getElementById('email').value,
+        amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+        currency: 'NGN',
+        ref: 'YOUR_REFERENCE',
+        callback: function (response) {
+          var reference = response.reference;
+          alert('Payment complete! Reference: ' + reference);
+          // Make an AJAX call to your server with the reference to verify the transaction
+        },
+        onClose: function () {
+          alert('Transaction was not completed, window closed.');
+        },
+      });
+      handler.openIframe();
+    }
   </script>
 </body>
+
 </html>
